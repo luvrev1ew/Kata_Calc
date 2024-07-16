@@ -26,31 +26,55 @@ class Main {
         int num2 = 0;
         char operator = strings[1].charAt(0);
         boolean isRoman=false;
+        boolean number1;
 
         if(Convertor.isRoman(str1) && Convertor.isRoman(str2)){
             num1 = Convertor.convertToArabic(str1);
             num2 = Convertor.convertToArabic(str2);
             isRoman = true;
         } else if (!Convertor.isRoman(str1) && !Convertor.isRoman(str2)){
+            if (!str1.matches("\\d+")) {
+                throw new IllegalArgumentException("Ошибка: неправильная форма записи числа");
+            }else{
+                num1 = Integer.parseInt(str1);
+            }
+
+            /*
             try{
                 num1 = Integer.parseInt(str1);
             }catch (NumberFormatException e){
-                throw  new NumberFormatException("Ошибка! Калькулятор может работать только с целыми числами!");
+                throw new NumberFormatException("Ошибка! Калькулятор может работать только с целыми числами!");
             }
+            */
+
             if(num1 < 1 || num1 > 10){
                 throw new NumberFormatException("Ошибка! Калькулятор может принимать только числа от 1 до 10 включительно.");
-            }try {
+            }
+
+            if (!str2.matches("\\d+")) {
+                throw new IllegalArgumentException("Ошибка: неправильная форма записи числа");
+            }else{
                 num2 = Integer.parseInt(str2);
+            }
+
+            /*
+           try{
+               num2 = Integer.parseInt(str2);
             }catch (NumberFormatException e){
                 throw  new NumberFormatException("Ошибка! Калькулятор может работать только с целыми числами!");
             }
+            */
+
             if(num2 < 1 || num2 > 10){
                 throw new NumberFormatException("Ошибка! Калькулятор может принимать только числа от 1 до 10 включительно.");
             }
+
             isRoman = false;
-        }else {
+
+        }else{
             throw new NumberFormatException("Числа должны быть в одном формате!");
         }
+
 
         int result = 0;
 
