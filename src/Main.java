@@ -15,8 +15,7 @@ class Main {
     public static String calc(String input){
         String [] strings = input.split(" ");
         if (strings.length != 3){
-            System.out.println("Неверная форма записи примера!");
-            System.exit(0);
+            throw new ArithmeticException("Неверная форма записи примера!");
         }
 
         String str1 = strings[0];
@@ -35,27 +34,22 @@ class Main {
         } else if (!Convertor.isRoman(str1) && !Convertor.isRoman(str2)){
             try{
                 num1 = Integer.parseInt(str1);
-            }catch (Exception e){
-                System.out.println("Ошибка! Калькулятор может работать только с целыми числами!");
-                System.exit(0);
+            }catch (NumberFormatException e){
+                throw  new NumberFormatException("Ошибка! Калькулятор может работать только с целыми числами!");
             }
             if(num1 < 1 || num1 > 10){
-                System.out.println("Ошибка! Калькулятор может принимать только числа от 1 до 10 включительно.");
-                System. exit(0);
+                throw new NumberFormatException("Ошибка! Калькулятор может принимать только числа от 1 до 10 включительно.");
             }try {
                 num2 = Integer.parseInt(str2);
-            }catch (Exception e){
-                System.out.println("Ошибка! Калькулятор может работать только с целыми числами!");
-                System.exit(0);
+            }catch (NumberFormatException e){
+                throw  new NumberFormatException("Ошибка! Калькулятор может работать только с целыми числами!");
             }
             if(num2 < 1 || num2 > 10){
-                System.out.println("Ошибка! Калькулятор может принимать только числа от 1 до 10 включительно.");
-                System. exit(0);
+                throw new NumberFormatException("Ошибка! Калькулятор может принимать только числа от 1 до 10 включительно.");
             }
             isRoman = false;
         }else {
-            System.out.println("Числа должны быть в одном формате!");
-            System.exit(0);
+            throw new NumberFormatException("Числа должны быть в одном формате!");
         }
 
         int result = 0;
@@ -66,9 +60,8 @@ class Main {
                 break;
             case "-":
                 result =  num1 - num2;
-                if(isRoman && num1 < num2 || num1 == num2){
-                    System.out.println("Результат не может быть меньше или равень нулю");
-                    System.exit(0);
+                if(isRoman && num1 < num2 || isRoman && num1 == num2){
+                    throw new ArithmeticException("Результат не может быть меньше или равень нулю");
                 }else {
                     result =  num1 - num2;
                 }
@@ -80,13 +73,11 @@ class Main {
                 if (num2 != 0) {
                     result =  num1 / num2;
                 } else {
-                    System.out.println("Деление на ноль недопустимо!");
+                    throw new ArithmeticException("Деление на ноль недопустимо!");
                 }
                 break;
             default:
-                System.out.println("Неверная операция!");
-                System.exit(0);
-
+                throw new ArithmeticException("Неверная операция!");
         }
 
         if(isRoman){
@@ -113,8 +104,7 @@ class Convertor {
         for (int i = 0; i < romanLiteral.length; i++) {
             if (val.equals(romanLiteral[i])) {
                 if(i > 10 || i < 1){
-                    System.out.println("Error! Калькулятор может принимать только числа от I до X включительно.");
-                    System.exit(0);
+                    throw  new NumberFormatException("Ошибка! Калькулятор может принимать только числа от I до X включительно.");
                 }else{
                     return true;
                 }
