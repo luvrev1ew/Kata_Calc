@@ -147,7 +147,11 @@ class Convertor {
     }
 
     static String convertToRoman(int arabian){
-        return romanLiteral[arabian];
+        if(arabian == 0){
+            throw new ArithmeticException("Ошибка! Результат не может быть меньше или равень нулю");
+        }else{
+            return romanLiteral[arabian];
+        }
     }
 }
 
